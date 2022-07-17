@@ -52,7 +52,7 @@ jobs:
         shell: bash
         run: |
           ls -la
-          tar czvf lnch-${{ matrix.artifact_suffix }}.tar.gz ${{ matrix.artifact_suffix }}/
+          tar czvf lnch-${{ matrix.artifact_suffix }}.tar.gz lnch
       - name: Release
         uses: softprops/action-gh-release@v1
         with:

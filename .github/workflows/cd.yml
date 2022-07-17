@@ -37,14 +37,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up Go
         uses: actions/setup-go@v2
-      - name: Set up macOS deps
-        if: matrix.os == 'macos-latest'
-        run: brew install scdoc
       - name: Set up Linux deps
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt update
-          sudo apt install scdoc
       - name: Set up Linux32 deps
         if: matrix.target_arch == '386'
         run: |
@@ -52,12 +48,6 @@ jobs:
           sudo apt-get install gcc-multilib
       - name: Build
         run: GOOS=${{ matrix.target_os }} GOARCH=${{ matrix.target_arch }} CGO_ENABLED=1 CGO_CFLAGS=${{ matrix.cflags }} CGO_LDFLAGS=${{ matrix.ldflags }} go build
-      - name: Install
-        run: make install
-#       - name: Tag
-#         shell: bash
-#         run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
-#         id: extract_tag
       - name: Package
         shell: bash
         run: |
